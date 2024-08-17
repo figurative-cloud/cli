@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/reasonai/cli/compare/v1.0.3...v1.0.4) (2024-08-17)
+
+
+### Bug Fixes
+
+* node version ([41a22da](https://github.com/reasonai/cli/commit/41a22da46f3e77786e93dcbc4bba34036a6bfc22))
+
 ## [1.0.3](https://github.com/reasonai/cli/compare/v1.0.2...v1.0.3) (2024-08-17)
 
 
