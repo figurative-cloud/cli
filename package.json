@@ -1,0 +1,43 @@
+{
+  "name": "@reasonai/cli",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "bin": "./dist/cli.mjs",
+  "types": "./dist/cli.d.cts",
+  "exports": {
+    "require": {
+      "types": "./dist/cli.d.cts",
+      "default": "./dist/cli.cjs"
+    },
+    "import": {
+      "types": "./dist/cli.d.mts",
+      "default": "./dist/cli.mjs"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reasonai/cli.git"
+  },
+  "scripts": {
+    "cli": "tsx src/cli.ts",
+    "start": "node dist/cli.mjs",
+    "build": "pkgroll",
+    "type-check": "tsc"
+  },
+  "dependencies": {
+    "@types/deep-equal": "^1.0.4",
+    "@types/ora": "^3.2.0",
+    "deep-equal": "^2.2.3",
+    "js-yaml": "^4.1.0",
+    "nanoid": "^5.0.7",
+    "ora": "^8.0.1",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.1.0",
+    "pkgroll": "2.4.1",
+    "tsx": "^4.16.5",
+    "typescript": "^5.5.4"
+  }
+}
