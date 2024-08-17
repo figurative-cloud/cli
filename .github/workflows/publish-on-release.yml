@@ -16,5 +16,4 @@ jobs:
       - run: npm install
       - uses: JS-DevTools/npm-publish@v3
         with:
-          node-version: '20'
           token: ${{ secrets.NPM_TOKEN }}
