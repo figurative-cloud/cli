@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/reasonai/cli/compare/v1.0.2...v1.0.3) (2024-08-17)
+
+
+### Bug Fixes
+
+* use external action ([d4391b2](https://github.com/reasonai/cli/commit/d4391b21c34bafe1ea1e5b2c3e2dafb51bd8a37f))
+
 ## [1.0.2](https://github.com/reasonai/cli/compare/v1.0.1...v1.0.2) (2024-08-17)
 
 
