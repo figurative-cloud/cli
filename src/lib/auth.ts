@@ -1,6 +1,6 @@
 import ora from 'ora'
 import { sprintf } from '../utils'
-import { HOST, HOST_AUTH } from './api'
+import { HOST_AUTH } from './api'
 import { loadConfig, saveConfig } from './config'
 import prompts from 'prompts'
 import { Config } from './types'

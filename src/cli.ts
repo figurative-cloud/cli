@@ -12,6 +12,17 @@ import { auth } from './lib/auth'
 
 const padCmd = (cmd: string) => cmd.padEnd(10)
 
+const runHelp = () => {
+  console.log('Usage:  reason [SERVICE] COMMAND [OPTIONS]')
+  console.log('\nCli tool for the reason platform')
+  Object.keys(cmds).map(key => {
+    console.log(`\n${key}`)
+    Object.keys((cmds as any)[key])?.map(cmd => {
+      console.log(padCmd(cmd), ((cmds as any)[key] as any)[cmd])
+    })
+  })
+}
+
 const cmds = {
   '': {
     api: 'Perform actions related to Reason API',
@@ -21,6 +32,7 @@ const cmds = {
     logout: 'Log out from an organization',
     pull: 'Pull all remote changes',
     push: 'Deploy all local changes',
+    request: 'Run an Inference API by passing in parameters',
     reset: 'Clean up the local environment',
     status: 'Show the diff between local and deployed env',
     whoami: 'Check who you are logged in as',
@@ -62,7 +74,7 @@ const main = async (): Promise<void> => {
     } else if (command === 'push') {
       await push()
       await functionPush()
-    } else if (command === 'run') {
+    } else if (command === 'request') {
       await run()
     } else if (command === 'api') {
       if (y === 'help') {
@@ -105,16 +117,10 @@ const main = async (): Promise<void> => {
         await functionAdd()
       }
     } else if (command === 'help') {
-      console.log('Usage:  reason [SERVICE] COMMAND [OPTIONS]')
-      console.log('\nCli tool for the reason platform')
-      Object.keys(cmds).map(key => {
-        console.log(`\n${key}`)
-        Object.keys((cmds as any)[key])?.map(cmd => {
-          console.log(padCmd(cmd), ((cmds as any)[key] as any)[cmd])
-        })
-      })
+      runHelp()
     } else {
-      console.error(`Unknown command: ${command ?? ''}`)
+      console.error(`Unknown command: ${command ?? ''}\n`)
+      runHelp()
       process.exit(1)
     }
   } catch (error) {
