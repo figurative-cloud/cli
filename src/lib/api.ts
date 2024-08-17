@@ -3,7 +3,6 @@ import type { LocalFile, MetaItem, RemoteItem } from './types'
 import ora from 'ora'
 import { sprintf } from '../utils'
 
-// const h = 'https://dev.univyse.com'
 const h = 'https://localhost:3001'
 export const HOST = `${h}/api/v1`
 export const HOST_AUTH = `${h}/api`
