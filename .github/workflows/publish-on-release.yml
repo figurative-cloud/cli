@@ -12,7 +12,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '20'
+          cache: npm
       - run: npm install
       - uses: JS-DevTools/npm-publish@v3
         with:
+          node-version: '20'
           token: ${{ secrets.NPM_TOKEN }}
