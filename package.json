@@ -1,9 +1,11 @@
 {
   "name": "@reasonai/cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "type": "module",
-  "bin": "./dist/cli.mjs",
+  "bin": {
+    "reasonai": "./dist/cli.mjs"
+  },
   "types": "./dist/cli.d.cts",
   "exports": {
     "require": {
@@ -27,7 +29,6 @@
   },
   "dependencies": {
     "@types/deep-equal": "^1.0.4",
-    "@types/ora": "^3.2.0",
     "deep-equal": "^2.2.3",
     "js-yaml": "^4.1.0",
     "nanoid": "^5.0.7",

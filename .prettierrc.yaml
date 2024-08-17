@@ -1,0 +1,8 @@
+singleQuote: true
+semi: false
+printWidth: 80
+arrowParens: "avoid"
+bracketSameLine: false
+singleAttributePerLine: false
+trailingComma: "es5"
+bracketSpacing: true
