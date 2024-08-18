@@ -15,6 +15,5 @@ jobs:
     steps:
       - uses: googleapis/release-please-action@v4
         with:
-          # Personal access token stored as repository secret
           token: ${{ secrets.RELEASE_PLEASE_TOKEN_SECRET }}
           release-type: node
