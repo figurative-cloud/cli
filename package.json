@@ -1,6 +1,7 @@
 {
   "name": "@reasonai/cli",
   "version": "1.0.4",
+  "description": "A simple tool for creating AI-based APIs",
   "license": "MIT",
   "type": "module",
   "bin": {
@@ -21,11 +22,27 @@
     "type": "git",
     "url": "git+https://github.com/reasonai/cli.git"
   },
+  "homepage": "https://reasonai.dev",
+  "keyworkds": [
+    "ai",
+    "node",
+    "api"
+  ],
+  "bugs": {
+    "url": "https://github.com/reasonai/cli/issues"
+  },
+  "author": "Joseph Anane",
   "scripts": {
     "cli": "tsx src/cli.ts",
     "start": "node dist/cli.mjs",
     "build": "pkgroll",
     "type-check": "tsc"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
     "@types/deep-equal": "^1.0.4",
@@ -37,7 +54,10 @@
   },
   "devDependencies": {
     "@types/node": "^22.1.0",
+    "lint-staged": "^15.2.9",
     "pkgroll": "2.4.1",
+    "prettier": "^3.3.3",
+    "simple-git-hooks": "^2.11.1",
     "tsx": "^4.16.5",
     "typescript": "^5.5.4"
   }
