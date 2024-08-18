@@ -36,13 +36,14 @@
     "cli": "tsx src/cli.ts",
     "start": "node dist/cli.mjs",
     "build": "pkgroll",
-    "type-check": "tsc"
+    "type-check": "tsc --noEmit"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm lint-staged"
+    "pre-commit": "yarn lint-staged"
   },
   "lint-staged": {
-    "*": "prettier --write --ignore-unknown"
+    "*": "prettier --write --ignore-unknown",
+    "*.ts": "yarn type-check"
   },
   "dependencies": {
     "@types/deep-equal": "^1.0.4",
