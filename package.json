@@ -1,6 +1,6 @@
 {
   "name": "@reasonai/cli",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A simple tool for creating AI-based APIs",
   "license": "MIT",
   "type": "module",

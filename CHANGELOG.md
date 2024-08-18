@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/reasonai/cli/compare/v1.0.4...v1.0.5) (2024-08-18)
+
+
+### Bug Fixes
+
+* cleanup ([3a94d83](https://github.com/reasonai/cli/commit/3a94d832d639aa85c8b23a0f19de0f5ecf09ca46))
+
 ## [1.0.4](https://github.com/reasonai/cli/compare/v1.0.3...v1.0.4) (2024-08-17)
 
 
