@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.9](https://github.com/reasonai/cli/compare/v1.0.8...v1.0.9) (2024-08-19)
+
+
+### Bug Fixes
+
+* pkg fix ([c05ef86](https://github.com/reasonai/cli/commit/c05ef86f099cbaa47c68f0fb05513a0ac2798bde))
+
 ## [1.0.7](https://github.com/reasonai/cli/compare/v1.0.6...v1.0.7) (2024-08-19)
 
 ### Bug Fixes
