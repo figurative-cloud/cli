@@ -1,11 +1,11 @@
 {
   "name": "@reasonai/cli",
-  "version": "1.0.8",
+  "version": "1.0.7",
   "description": "A simple tool for creating AI-based APIs",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "reasonai": "./dist/cli.mjs"
+    "reasonai": "dist/cli.mjs"
   },
   "types": "./dist/cli.d.cts",
   "exports": {

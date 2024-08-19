@@ -1,65 +1,50 @@
 # Changelog
 
-## [1.0.8](https://github.com/reasonai/cli/compare/v1.0.7...v1.0.8) (2024-08-19)
-
-
-### Bug Fixes
-
-* restore exports ([898b506](https://github.com/reasonai/cli/commit/898b50679b66f3f67b4786b6321fc26d538bd91c))
-
 ## [1.0.7](https://github.com/reasonai/cli/compare/v1.0.6...v1.0.7) (2024-08-19)
 
-
 ### Bug Fixes
 
-* workflow ([a6b36ad](https://github.com/reasonai/cli/commit/a6b36ad8943608513258537e085673ee95186ec8))
+- workflow ([a6b36ad](https://github.com/reasonai/cli/commit/a6b36ad8943608513258537e085673ee95186ec8))
 
 ## [1.0.6](https://github.com/reasonai/cli/compare/v1.0.5...v1.0.6) (2024-08-19)
 
-
 ### Bug Fixes
 
-* refactor, update build, rename apis to integral ([cf9590f](https://github.com/reasonai/cli/commit/cf9590fc131932ee73895aab83bc7525cf9030f8))
+- refactor, update build, rename apis to integral ([cf9590f](https://github.com/reasonai/cli/commit/cf9590fc131932ee73895aab83bc7525cf9030f8))
 
 ## [1.0.5](https://github.com/reasonai/cli/compare/v1.0.4...v1.0.5) (2024-08-18)
 
-
 ### Bug Fixes
 
-* cleanup ([3a94d83](https://github.com/reasonai/cli/commit/3a94d832d639aa85c8b23a0f19de0f5ecf09ca46))
+- cleanup ([3a94d83](https://github.com/reasonai/cli/commit/3a94d832d639aa85c8b23a0f19de0f5ecf09ca46))
 
 ## [1.0.4](https://github.com/reasonai/cli/compare/v1.0.3...v1.0.4) (2024-08-17)
 
-
 ### Bug Fixes
 
-* node version ([41a22da](https://github.com/reasonai/cli/commit/41a22da46f3e77786e93dcbc4bba34036a6bfc22))
+- node version ([41a22da](https://github.com/reasonai/cli/commit/41a22da46f3e77786e93dcbc4bba34036a6bfc22))
 
 ## [1.0.3](https://github.com/reasonai/cli/compare/v1.0.2...v1.0.3) (2024-08-17)
 
-
 ### Bug Fixes
 
-* use external action ([d4391b2](https://github.com/reasonai/cli/commit/d4391b21c34bafe1ea1e5b2c3e2dafb51bd8a37f))
+- use external action ([d4391b2](https://github.com/reasonai/cli/commit/d4391b21c34bafe1ea1e5b2c3e2dafb51bd8a37f))
 
 ## [1.0.2](https://github.com/reasonai/cli/compare/v1.0.1...v1.0.2) (2024-08-17)
 
-
 ### Bug Fixes
 
-* add npm publishing ([33bd284](https://github.com/reasonai/cli/commit/33bd28469adf245e172be3c9c8c2dad4061cd5d2))
-* remove comments ([5653136](https://github.com/reasonai/cli/commit/5653136eae5a8b280ecbd7fb08ee3ca33c62bb44))
+- add npm publishing ([33bd284](https://github.com/reasonai/cli/commit/33bd28469adf245e172be3c9c8c2dad4061cd5d2))
+- remove comments ([5653136](https://github.com/reasonai/cli/commit/5653136eae5a8b280ecbd7fb08ee3ca33c62bb44))
 
 ## [1.0.1](https://github.com/reasonai/cli/compare/v1.0.0...v1.0.1) (2024-08-17)
 
-
 ### Bug Fixes
 
-* use node release type ([00eb780](https://github.com/reasonai/cli/commit/00eb780daa1ed6961bf91d68005035cc35a8c217))
+- use node release type ([00eb780](https://github.com/reasonai/cli/commit/00eb780daa1ed6961bf91d68005035cc35a8c217))
 
 ## 1.0.0 (2024-08-17)
 
-
 ### Bug Fixes
 
-* cleanup ([ff34c91](https://github.com/reasonai/cli/commit/ff34c91d5e645185b06fd117891dbaa3088d030f))
+- cleanup ([ff34c91](https://github.com/reasonai/cli/commit/ff34c91d5e645185b06fd117891dbaa3088d030f))
