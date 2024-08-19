@@ -15,8 +15,6 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: yarn install
-      - name: Build
-        run: yarn build
       - uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ secrets.NPM_TOKEN }}
