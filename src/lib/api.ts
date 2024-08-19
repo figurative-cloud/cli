@@ -1,7 +1,7 @@
-import type { LocalFile, MetaItem, RemoteItem } from './types'
-
 import ora from 'ora'
-import { sprintf } from '../utils'
+
+import type { LocalFile, MetaItem, RemoteItem } from './types'
+import { sprintf } from './utils'
 
 const h = 'https://localhost:3001'
 export const HOST = `${h}/api/v1`
@@ -158,17 +158,17 @@ type RunResult = {
     content: { text: string; type: 'text' }[]
   }
 }
-export const runApi = async (
+export const runIntegral = async (
   apiKey: string,
-  options: { api: MetaItem; message: string }
+  options: { integral: MetaItem; message: string }
 ): Promise<RunResult> => {
-  const spinner = ora(`Running ${options.api.name}`).start()
+  const spinner = ora(`Running ${options.integral.name}`).start()
 
   try {
     const response = await fetch(`${HOST}/apis/request`, {
       method: 'POST',
       body: JSON.stringify({
-        apiId: options.api.id,
+        apiId: options.integral.id,
         messages: [{ role: 'user', content: options.message }],
       }),
       headers: { Authorization: `Bearer ${apiKey}` },

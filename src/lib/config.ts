@@ -1,7 +1,8 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import type { Config } from './types'
 import jsYaml from 'js-yaml'
+
+import type { Config } from './types'
 
 const defaultConfig: Partial<Config> = {
   baseDir: './reason',

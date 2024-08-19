@@ -1,7 +1,8 @@
 import ora from 'ora'
-import { toFileObject } from '../utils'
-import type { LocalFile, MetaItem, RemoteItem } from './types'
 import deepEqual from 'deep-equal'
+
+import { toFileObject } from './utils'
+import type { LocalFile, MetaItem, RemoteItem } from './types'
 
 export enum RecordStatus {
   CREATED_UPSTREAM,

@@ -1,5 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
+import jsYaml from 'js-yaml'
+
 import type {
   Config,
   LocalFile,
@@ -7,9 +9,8 @@ import type {
   MetaItem,
   RemoteItem,
 } from '../lib/types'
-import { toFileObject } from '../utils'
+import { toFileObject } from './utils'
 import { saveMetadata } from '../lib/meta'
-import jsYaml from 'js-yaml'
 import { loadConfig } from './config'
 
 export const updateFileContent = (

@@ -40,7 +40,7 @@ export type LocalAgentWithFilePath = LocalAgent & {
 
 export type Metadata = {
   functions: MetaItem[]
-  apis: MetaItem[]
+  integrals: MetaItem[]
 }
 
 export type Config = {

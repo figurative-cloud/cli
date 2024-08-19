@@ -1,13 +1,13 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import { deleteConfig, initConfig, loadConfig } from './lib/config'
 import ora from 'ora'
-import { cleanupMeta, initMeta } from './lib/meta'
-import { auth } from './lib/auth'
 import prompts, { PromptObject } from 'prompts'
-import { sprintf } from './utils'
+import { deleteConfig, initConfig, loadConfig } from '../lib/config'
+import { cleanupMeta, initMeta } from '../lib/meta'
+import { sprintf } from '../lib/utils'
+import { login } from '../lib/auth'
 
-const cleanup = () => {
+export const removeReasonAI = () => {
   const spinner = ora()
   const config = loadConfig()
   if (!config) {
@@ -36,7 +36,7 @@ const cleanup = () => {
   spinner.succeed('Done')
 }
 
-const init = async () => {
+export const initReasonAI = async () => {
   const spinner = ora()
   spinner.info('Reason env initialization\n')
   let config = loadConfig()
@@ -83,7 +83,7 @@ const init = async () => {
   )
 
   if (shouldLogin) {
-    await auth().login()
+    await login()
   }
 
   const gray = '\x1b[90m'
@@ -105,5 +105,3 @@ const init = async () => {
 
   console.log('Happy coding!\n')
 }
-
-export { cleanup, init }

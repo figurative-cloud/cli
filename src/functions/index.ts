@@ -1,5 +1,7 @@
 import * as path from 'path'
 import ora from 'ora'
+import prompts, { PromptObject } from 'prompts'
+import { nanoid } from 'nanoid/non-secure'
 
 import { loadMetadata, saveMetadata } from '../lib/meta'
 import { findFilesInFolders } from '../lib/read-local'
@@ -7,23 +9,21 @@ import { createItem, deleteItem, getList, updateItem } from '../lib/api'
 import { loadConfig } from '../lib/config'
 import { RecordStatus, getStatusTable, printStatusTable } from '../lib/status'
 import { pullItems, updateFileContent } from '../lib/pull'
-import { getServicePath } from '../utils'
-import prompts, { PromptObject } from 'prompts'
-import { nanoid } from 'nanoid/non-secure'
+import { getServicePath, terms } from '../lib/utils'
 
 const params = {
-  label: 'function',
+  label: terms.Function,
   uri: '/functions',
 }
 
-export const functionsStatus = async (): Promise<void> => {
+export const getFunctionsStatus = async (): Promise<void> => {
   console.log('Reason Functions\n')
   let spinner = ora()
 
   const config = loadConfig()
   if (!config?.auth) {
     spinner.fail('Please login first')
-    return
+    process.exit(1)
   }
 
   const localdb = await findFilesInFolders(
@@ -42,7 +42,7 @@ export const functionsStatus = async (): Promise<void> => {
   spinner.succeed('Done\n')
 }
 
-export const functionPull = async (): Promise<void> => {
+export const pullFunctions = async (): Promise<void> => {
   console.log('\nReason Functions\n')
   let spinner = ora().info('Pulling remote changes')
   const config = loadConfig()
@@ -70,7 +70,7 @@ export const functionPull = async (): Promise<void> => {
   spinner.succeed('Done\n')
 }
 
-export const functionPush = async (): Promise<void> => {
+export const pushFunction = async (): Promise<void> => {
   console.log('\nReason Functions\n')
   let spinner = ora().info('Deploying local changes')
   const config = loadConfig()
@@ -167,7 +167,7 @@ export const functionPush = async (): Promise<void> => {
   spinner.succeed('Done\n')
 }
 
-export const functionAdd = async (): Promise<void> => {
+export const addFunction = async (): Promise<void> => {
   console.log('\nReason Functions\n')
   let spinner = ora().info('Deploying local changes')
   const config = loadConfig()
@@ -240,12 +240,12 @@ export const functionAdd = async (): Promise<void> => {
   }
   if (answers.invocation.type === 'rest_api') {
     console.log()
-    spinner.info('Configure the rest api URL. (use {var} to add variables)')
+    spinner.info('Configure the REST API URL. (use {var} to add variables)')
     spinner.info('You can add values for the variables later')
     const apiAnswers = await prompts([
       {
         name: 'api_url',
-        message: 'Rest API endpoint ',
+        message: 'REST API endpoint ',
         type: 'text',
         validate: text => {
           try {
@@ -350,7 +350,7 @@ export const functionAdd = async (): Promise<void> => {
   console.log()
   spinner.succeed(`Main function configuration done`)
   spinner.info(
-    `. You can edit it later in ./reason/functions/${answers.name}\n`
+    `. You can edit it later in ./reason/${terms.functions}/${answers.name}\n`
   )
   spinner.succeed(
     `You can also add env variables and request headers by editing the configs`
@@ -362,5 +362,7 @@ export const functionAdd = async (): Promise<void> => {
     answers
   )
   spinner.succeed('Reason function has been created successfully')
-  spinner.succeed('To deploy the function, run reason function push')
+  spinner.succeed(
+    `To deploy the function, run ${terms.cmd} ${terms.function_cmd} push`
+  )
 }
