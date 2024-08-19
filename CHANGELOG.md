@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/reasonai/cli/compare/v1.0.10...v1.1.0) (2024-08-19)
+
+
+### Features
+
+* version checking ([242b4b8](https://github.com/reasonai/cli/commit/242b4b8e898f5976eec8588c97738539f1ad6ece))
+
+
+### Bug Fixes
+
+* update api ([8e83a67](https://github.com/reasonai/cli/commit/8e83a67b156a924693e1c6e669f45dd5fafb8567))
+
 ## [1.0.10](https://github.com/reasonai/cli/compare/v1.0.9...v1.0.10) (2024-08-19)
 
 
