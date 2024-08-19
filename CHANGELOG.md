@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.6](https://github.com/reasonai/cli/compare/v1.0.5...v1.0.6) (2024-08-19)
+
+
+### Bug Fixes
+
+* refactor, update build, rename apis to integral ([cf9590f](https://github.com/reasonai/cli/commit/cf9590fc131932ee73895aab83bc7525cf9030f8))
+
 ## [1.0.5](https://github.com/reasonai/cli/compare/v1.0.4...v1.0.5) (2024-08-18)
 
 
