@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.10](https://github.com/reasonai/cli/compare/v1.0.9...v1.0.10) (2024-08-19)
+
+
+### Bug Fixes
+
+* simple export ([6d0b0f7](https://github.com/reasonai/cli/commit/6d0b0f7f474c93cd2b41acbab003043707dddc8c))
+
 ## [1.0.9](https://github.com/reasonai/cli/compare/v1.0.8...v1.0.9) (2024-08-19)
 
 
