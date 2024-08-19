@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.7](https://github.com/reasonai/cli/compare/v1.0.6...v1.0.7) (2024-08-19)
+
+
+### Bug Fixes
+
+* workflow ([a6b36ad](https://github.com/reasonai/cli/commit/a6b36ad8943608513258537e085673ee95186ec8))
+
 ## [1.0.6](https://github.com/reasonai/cli/compare/v1.0.5...v1.0.6) (2024-08-19)
 
 
