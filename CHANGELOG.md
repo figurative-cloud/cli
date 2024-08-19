@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.8](https://github.com/reasonai/cli/compare/v1.0.7...v1.0.8) (2024-08-19)
+
+
+### Bug Fixes
+
+* restore exports ([898b506](https://github.com/reasonai/cli/commit/898b50679b66f3f67b4786b6321fc26d538bd91c))
+
 ## [1.0.7](https://github.com/reasonai/cli/compare/v1.0.6...v1.0.7) (2024-08-19)
 
 
