@@ -1,9 +1,10 @@
 import * as fs from 'fs'
 import * as path from 'path'
+
 import type { Config, Metadata } from './types'
 import { loadConfig } from './config'
 
-const defaultMeta: Metadata = { apis: [], functions: [] }
+const defaultMeta: Metadata = { integrals: [], functions: [] }
 
 const getMetaPath = (config: Config) =>
   path.resolve(config.baseDir, config.metaDataFile)
@@ -17,14 +18,14 @@ export const loadMetadata = (): Metadata => {
   const metaPath = getMetaPath(config)
   try {
     if (!fs.existsSync(metaPath)) {
-      return { apis: [], functions: [] }
+      return { integrals: [], functions: [] }
     }
     const meta: Metadata = JSON.parse(fs.readFileSync(metaPath, 'utf-8'))
     if (!meta.functions) {
       meta.functions = []
     }
-    if (!meta.apis) {
-      meta.apis = []
+    if (!meta.integrals) {
+      meta.integrals = []
     }
     return meta
   } catch (error) {

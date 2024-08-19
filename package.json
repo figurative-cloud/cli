@@ -9,13 +9,9 @@
   },
   "types": "./dist/cli.d.cts",
   "exports": {
-    "require": {
-      "types": "./dist/cli.d.cts",
-      "default": "./dist/cli.cjs"
-    },
-    "import": {
-      "types": "./dist/cli.d.mts",
-      "default": "./dist/cli.mjs"
+    ".": {
+      "require": "./dist/cli.cjs",
+      "import": "./dist/cli.mjs"
     }
   },
   "repository": {
@@ -26,7 +22,8 @@
   "keyworkds": [
     "ai",
     "node",
-    "api"
+    "api",
+    "functions"
   ],
   "bugs": {
     "url": "https://github.com/reasonai/cli/issues"
@@ -39,11 +36,8 @@
     "type-check": "tsc --noEmit"
   },
   "simple-git-hooks": {
-    "pre-commit": "yarn lint-staged"
-  },
-  "lint-staged": {
-    "*": "prettier --write --ignore-unknown",
-    "*.ts": "yarn type-check"
+    "pre-commit": "yarn lint-staged",
+    "pre-push": "yarn build"
   },
   "dependencies": {
     "@types/deep-equal": "^1.0.4",

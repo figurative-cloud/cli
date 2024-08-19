@@ -2,45 +2,6 @@ import fs from 'fs/promises'
 import * as f from 'fs'
 import path from 'path'
 import yaml from 'js-yaml'
-import { LocalFile } from './types'
-
-async function walkDir(dir: string): Promise<string[]> {
-  let results: string[] = []
-  const list = await fs.readdir(dir, { withFileTypes: true })
-
-  for (const file of list) {
-    const fullPath = path.join(dir, file.name)
-    if (file.isDirectory()) {
-      const nestedResults = await walkDir(fullPath)
-      results = results.concat(nestedResults)
-    } else if (file.isFile() && path.extname(file.name) === '.json') {
-      results.push(fullPath)
-    }
-  }
-
-  return results
-}
-
-async function readJsonFiles<T extends LocalFile>(dir: string): Promise<T[]> {
-  if (!f.existsSync(dir)) {
-    return []
-  }
-
-  try {
-    const dirs = await walkDir(dir)
-    const objects = await Promise.all(
-      dirs.map(async file => {
-        const data = await fs.readFile(file, 'utf8')
-        const content = JSON.parse(data)
-        return { filePath: file, ...content }
-      })
-    )
-    return objects
-  } catch (error) {
-    console.error('Error reading JSON files', error)
-    throw error
-  }
-}
 
 async function findAllFolders(dir: string) {
   const folders: string[] = []

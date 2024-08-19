@@ -1,64 +1,81 @@
 #!/usr/bin/env node
 
 import {
-  functionAdd,
-  functionPull,
-  functionPush,
-  functionsStatus,
+  addFunction,
+  pullFunctions,
+  pushFunction,
+  getFunctionsStatus,
 } from './functions'
-import { cleanup, init } from './general'
-import { status, pull, push, apiAdd, run } from './inference'
-import { auth } from './lib/auth'
+import { removeReasonAI, initReasonAI } from './general'
+import {
+  getIntegralStatus,
+  pullIntegrals,
+  pushIntegrals,
+  addIntegral,
+  run,
+} from './integral'
+import { login, logout, whoami } from './lib/auth'
+import { terms } from './lib/utils'
 
-const padCmd = (cmd: string) => cmd.padEnd(10)
+const gray = '\x1b[90m'
+const reset = '\x1b[0m'
+
+const padCmd = (cmd: string) => cmd.padEnd(11)
+const arrow = `${gray}>${reset}`
 
 const runHelp = () => {
-  console.log('Usage:  reason [SERVICE] COMMAND [OPTIONS]')
-  console.log('\nCli tool for the reason platform')
+  console.log('\nCLI tool for the Reason platform\n')
+  console.log(`Usage: ${terms.cmd} [SERVICE] COMMAND [OPTIONS]\n`)
+  console.log('COMMANDS:')
   Object.keys(cmds).map(key => {
-    console.log(`\n${key}`)
+    console.log(`\n${gray}%s${reset}`, key)
     Object.keys((cmds as any)[key])?.map(cmd => {
       console.log(padCmd(cmd), ((cmds as any)[key] as any)[cmd])
     })
   })
+  console.log()
 }
 
 const cmds = {
-  '': {
-    api: 'Perform actions related to Reason API',
-    function: 'Perform actions related to Reason Functions',
+  [terms.cmd]: {
+    [`${arrow} ${terms.function_cmd}`]:
+      'Perform actions related to Reason Functions',
+    help: 'Display this help information',
     init: 'Initialize the local environment',
+    [`${arrow} ${terms.integral_cmd}`]: `Perform actions related to Reason ${terms.Integrals}`,
     login: 'Log in to an organization',
     logout: 'Log out from an organization',
     pull: 'Pull all remote changes',
     push: 'Deploy all local changes',
-    request: 'Run an Inference API by passing in parameters',
+    request: `Run an ${terms.Integral} by passing in parameters`,
     reset: 'Clean up the local environment',
     status: 'Show the diff between local and deployed env',
     whoami: 'Check who you are logged in as',
   },
-  function: {
+  [terms.function_cmd]: {
     add: 'Add a new Reason Function',
+    help: 'Display this help information',
     pull: 'Pull all remote functions',
     push: 'Deploy all local functions',
     status: 'Show the diff between local and deployed functions',
   },
-  api: {
-    pull: 'Pull all remote functions',
-    push: 'Deploy all local functions',
-    status: 'Show the diff between local and deployed functions',
+  [terms.integral_cmd]: {
+    add: `Add a new ${terms.Integral}`,
+    help: 'Display this help information',
+    pull: `Pull all remote ${terms.Integrals}`,
+    push: `Deploy all local ${terms.Integrals}`,
+    status: `Show the diff between local and deployed ${terms.Integrals}`,
   },
 }
 
 const main = async (): Promise<void> => {
-  const [command, y, z] = process.argv.slice(2)
-  const { login, logout, whoami } = auth()
+  const [command, y] = process.argv.slice(2)
 
   try {
     if (command === 'init') {
-      await init()
+      await initReasonAI()
     } else if (command === 'reset') {
-      cleanup()
+      removeReasonAI()
     } else if (command === 'whoami') {
       whoami()
     } else if (command === 'login') {
@@ -66,55 +83,57 @@ const main = async (): Promise<void> => {
     } else if (command === 'logout') {
       logout()
     } else if (command === 'status') {
-      await status()
-      await functionsStatus()
+      await getIntegralStatus()
+      await getFunctionsStatus()
     } else if (command === 'pull') {
-      await pull()
-      await functionPull()
+      await pullIntegrals()
+      await pullFunctions()
     } else if (command === 'push') {
-      await push()
-      await functionPush()
+      await pushIntegrals()
+      await pushFunction()
     } else if (command === 'request') {
       await run()
-    } else if (command === 'api') {
+    } else if (command === terms.integral_cmd) {
       if (y === 'help') {
-        console.log('\nSubcommand to manage Reason API\n')
-        console.log('Usage: reason api COMMAND [OPTIONS]\n')
-        Object.keys(cmds['api'])?.map(cmd => {
-          console.log(padCmd(cmd), (cmds['api'] as any)[cmd])
+        console.log(`\nSubcommand to manage Reason ${terms.Integrals}\n`)
+        console.log(
+          `Usage: ${terms.cmd} ${terms.integral_cmd} COMMAND [OPTIONS]\n`
+        )
+        console.log('COMMANDS:')
+        Object.keys(cmds[terms.integral_cmd])?.map(cmd => {
+          console.log(padCmd(cmd), (cmds[terms.integral_cmd] as any)[cmd])
         })
+
+        console.log()
+      } else if (y === 'push') {
+        await pushIntegrals()
+      } else if (y === 'pull') {
+        await pullIntegrals()
+      } else if (y === 'status') {
+        await getIntegralStatus()
+      } else if (y === 'add') {
+        await addIntegral()
       }
-      if (y === 'push') {
-        await push()
-      }
-      if (y === 'pull') {
-        await pull()
-      }
-      if (y === 'status') {
-        await status()
-      }
-      if (y === 'add') {
-        await apiAdd()
-      }
-    } else if (command === 'function') {
+    } else if (command === terms.function_cmd) {
       if (y === 'help') {
         console.log('\nSubcommand to manage Reason Functions\n')
-        console.log('Usage: reason function COMMAND [OPTIONS]\n')
-        Object.keys(cmds['function'])?.map(cmd => {
-          console.log(padCmd(cmd), (cmds['function'] as any)[cmd])
+        console.log(
+          `Usage: ${terms.cmd} ${terms.function_cmd} COMMAND [OPTIONS]\n`
+        )
+        console.log('COMMANDS:')
+        Object.keys(cmds[terms.function_cmd])?.map(cmd => {
+          console.log(padCmd(cmd), (cmds[terms.function_cmd] as any)[cmd])
         })
-      }
-      if (y === 'push') {
-        await functionPush()
-      }
-      if (y === 'pull') {
-        await functionPull()
-      }
-      if (y === 'status') {
-        await functionsStatus()
-      }
-      if (y === 'add') {
-        await functionAdd()
+
+        console.log()
+      } else if (y === 'push') {
+        await pushFunction()
+      } else if (y === 'pull') {
+        await pullFunctions()
+      } else if (y === 'status') {
+        await getFunctionsStatus()
+      } else if (y === 'add') {
+        await addFunction()
       }
     } else if (command === 'help') {
       runHelp()

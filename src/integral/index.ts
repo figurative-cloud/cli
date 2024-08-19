@@ -1,29 +1,31 @@
 import * as path from 'path'
 import ora from 'ora'
-
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
-
-import { loadMetadata, saveMetadata } from '../lib/meta'
-import { findFilesInFolders } from '../lib/read-local'
-import { createItem, deleteItem, getList, runApi, updateItem } from '../lib/api'
-import { loadConfig } from '../lib/config'
-import { RecordStatus, getStatusTable, printStatusTable } from '../lib/status'
-import { pullItems, updateFileContent } from '../lib/pull'
-import { getServicePath } from '../utils'
 import prompts, { PromptObject } from 'prompts'
 import { nanoid } from 'nanoid/non-secure'
 
-// const __filename = fileURLToPath(import.meta.url)
-// const __dirname = dirname(__filename)
+import { loadMetadata, saveMetadata } from '../lib/meta'
+import { findFilesInFolders } from '../lib/read-local'
+import {
+  createItem,
+  deleteItem,
+  getList,
+  runIntegral,
+  updateItem,
+} from '../lib/api'
+import { loadConfig } from '../lib/config'
+import { RecordStatus, getStatusTable, printStatusTable } from '../lib/status'
+import { pullItems, updateFileContent } from '../lib/pull'
+import { getServicePath, terms } from '../lib/utils'
 
 const params = {
-  label: 'agent',
+  label: terms.Integral,
   uri: '/apis',
 }
 
-const status = async (): Promise<void> => {
-  console.log('Reason API\n')
+const fullName = `Reason ${terms.Integrals}`
+
+export const getIntegralStatus = async (): Promise<void> => {
+  console.log(`${fullName}\n`)
   let spinner = ora()
   const config = loadConfig()
   if (!config?.auth) {
@@ -32,7 +34,7 @@ const status = async (): Promise<void> => {
   }
 
   const localdb = await findFilesInFolders(
-    getServicePath(config.baseDir, 'api')
+    getServicePath(config.baseDir, 'integrals')
   )
   const metadata = loadMetadata()
   spinner.succeed('Loaded local config')
@@ -41,14 +43,14 @@ const status = async (): Promise<void> => {
   const remoteItems = await getList(config.auth.apiKey, params)
   spinner.succeed('Fecthed remote configuration')
 
-  const statusTable = getStatusTable(metadata.apis, localdb, remoteItems)
+  const statusTable = getStatusTable(metadata.integrals, localdb, remoteItems)
   printStatusTable(statusTable)
 
   spinner.succeed('Done\n')
 }
 
-const pull = async (): Promise<void> => {
-  console.log('\nReason API\n')
+export const pullIntegrals = async (): Promise<void> => {
+  console.log(`\n${fullName}\n`)
   let spinner = ora().info('Pulling remote changes')
   const config = loadConfig()
   if (!config?.auth) {
@@ -65,18 +67,18 @@ const pull = async (): Promise<void> => {
 
   spinner.start('Updating local configurations')
   pullItems(
-    getServicePath(config.baseDir, 'api'),
+    getServicePath(config.baseDir, 'integrals'),
     metadata,
     remoteItems,
-    'apis'
+    'integrals'
   )
 
   spinner.succeed('Updated local environment')
   spinner.succeed('Done\n')
 }
 
-const push = async (): Promise<void> => {
-  console.log('\nReason API\n')
+export const pushIntegrals = async (): Promise<void> => {
+  console.log(`\n${fullName}\n`)
   let spinner = ora().info('Deploying local changes')
   const config = loadConfig()
   if (!config?.auth) {
@@ -84,7 +86,9 @@ const push = async (): Promise<void> => {
     return
   }
 
-  let localdb = await findFilesInFolders(getServicePath(config.baseDir, 'api'))
+  let localdb = await findFilesInFolders(
+    getServicePath(config.baseDir, 'integrals')
+  )
   const metadata = loadMetadata()
   spinner.succeed('Loaded local config')
 
@@ -92,7 +96,7 @@ const push = async (): Promise<void> => {
   let remoteItems = await getList(config.auth.apiKey, params)
   spinner.succeed('Fetched remote configuration')
 
-  let statusTable = getStatusTable(metadata.apis, localdb, remoteItems)
+  let statusTable = getStatusTable(metadata.integrals, localdb, remoteItems)
 
   if (
     Object.values(statusTable).some(({ status }) =>
@@ -112,7 +116,7 @@ const push = async (): Promise<void> => {
   for (const key of Object.keys(statusTable)) {
     const s = statusTable[key]
     let localItem = localdb.find(lItem => lItem.filePath === key)
-    let mItem = metadata.apis.find(agent => agent.id === key)
+    let mItem = metadata.integrals.find(agent => agent.id === key)
 
     switch (s.status) {
       case RecordStatus.CREATED_LOCAL:
@@ -120,9 +124,9 @@ const push = async (): Promise<void> => {
           const agent = await createItem(config.auth.apiKey, localItem, params)
           saveMetadata({
             ...metadata,
-            apis: [
+            integrals: [
               { filePath: localItem.filePath, ...agent },
-              ...metadata.apis,
+              ...metadata.integrals,
             ],
           })
         } else {
@@ -131,7 +135,7 @@ const push = async (): Promise<void> => {
         break
 
       case RecordStatus.DELETED_LOCAL:
-        mItem = metadata.apis.find(item => item.id === key)
+        mItem = metadata.integrals.find(item => item.id === key)
         if (mItem) {
           await deleteItem(config.auth.apiKey, mItem, params)
         } else {
@@ -157,21 +161,21 @@ const push = async (): Promise<void> => {
   spinner.start('Syncing configurations')
   remoteItems = await getList(config.auth.apiKey, params)
   pullItems(
-    getServicePath(config.baseDir, 'api'),
+    getServicePath(config.baseDir, 'integrals'),
     metadata,
     remoteItems,
-    'apis'
+    'integrals'
   )
   spinner.succeed('Synced configurations')
 
-  statusTable = getStatusTable(loadMetadata().apis, localdb, remoteItems)
+  statusTable = getStatusTable(loadMetadata().integrals, localdb, remoteItems)
   printStatusTable(statusTable)
 
   spinner.succeed('Done\n')
 }
 
-export const apiAdd = async (): Promise<void> => {
-  console.log('\nAdd Reason API\n')
+export const addIntegral = async (): Promise<void> => {
+  console.log(`\nAdd ${terms.Integral}\n`)
   let spinner = ora()
   const config = loadConfig()
   if (!config?.auth) {
@@ -180,25 +184,27 @@ export const apiAdd = async (): Promise<void> => {
   }
 
   const localdb = await findFilesInFolders(
-    getServicePath(config.baseDir, 'api')
+    getServicePath(config.baseDir, 'integrals')
   )
   const localFunctions = await findFilesInFolders(
     getServicePath(config.baseDir, 'functions')
   )
   const opts = { onCancel: () => process.exit() }
 
-  spinner.info('A single API can perform multiple functions/requests')
   spinner.info(
-    'Create domain-based APIs and use each to handle the domain requests\n'
+    `A single ${terms.Integral} can perform multiple API functions/requests`
+  )
+  spinner.info(
+    `Create domain-based ${terms.Integrals} and use each to handle the domain requests\n`
   )
   spinner.info('e.g weatherAPI')
 
   const questions: PromptObject[] = [
     {
-      message: 'Enter API name',
+      message: `Enter ${terms.Integral} name`,
       type: 'text',
       name: 'name',
-      initial: `api${nanoid(8).split('-').join()}`,
+      initial: `${terms.integral}_${nanoid(8).split('-').join()}`,
       validate: text => /^[A-z0-9_]{3,64}$/.test(text),
     },
     {
@@ -232,7 +238,7 @@ export const apiAdd = async (): Promise<void> => {
   let answers = await prompts(questions, opts)
 
   if (localdb.find(f => f.name === answers.name)) {
-    spinner.fail('An API with the given name already exists')
+    spinner.fail(`An ${terms.Integral} with the given name already exists`)
     process.exit()
   }
 
@@ -243,7 +249,7 @@ export const apiAdd = async (): Promise<void> => {
     }))
 
     console.log()
-    spinner.info('Select functions to attach to the API')
+    spinner.info(`Select functions to link to the ${terms.Integral}`)
     const { tools } = await prompts([
       {
         instructions: false,
@@ -262,19 +268,23 @@ export const apiAdd = async (): Promise<void> => {
 
   updateFileContent(
     config,
-    path.resolve(getServicePath(config.baseDir, 'api'), answers.name),
+    path.resolve(getServicePath(config.baseDir, 'integrals'), answers.name),
     answers
   )
 
   console.log()
-  spinner.succeed('Reason API has been created successfully')
-  spinner.info(`You can edit it later in ./reason/api/${answers.name}\n`)
+  spinner.succeed(`${terms.Integral} has been created successfully`)
+  spinner.info(
+    `You can edit it later in ./reason/${terms.integrals}/${answers.name}\n`
+  )
   console.log()
-  spinner.succeed('To deploy the api, run reason api push')
+  spinner.succeed(
+    `To deploy the ${terms.Integral}, run "${terms.cmd} ${terms.integrals} push"`
+  )
 }
 
 export const run = async (): Promise<void> => {
-  console.log('\nRun Reason API\n')
+  console.log(`\nRun ${fullName}\n`)
   let spinner = ora()
   const config = loadConfig()
   if (!config?.auth) {
@@ -287,13 +297,13 @@ export const run = async (): Promise<void> => {
   const options = await prompts(
     [
       {
-        name: 'api',
-        message: 'Select Inference API to run',
+        name: 'integral',
+        message: `Select ${terms.Integral} to run`,
         type: 'select',
-        choices: metadata.apis.map(api => ({
-          title: api.name,
-          value: api,
-          description: api.description,
+        choices: metadata.integrals.map(item => ({
+          title: item.name,
+          value: item,
+          description: item.description,
         })),
         validate: item => !!item.id,
       },
@@ -309,7 +319,7 @@ export const run = async (): Promise<void> => {
   )
 
   const start = new Date()
-  const response = await runApi(config.auth.apiKey, options)
+  const response = await runIntegral(config.auth.apiKey, options)
   const end = new Date()
   const duration = (end.valueOf() - start.valueOf()) / 1000
 
@@ -318,5 +328,3 @@ export const run = async (): Promise<void> => {
   spinner.succeed(`Finished in ${duration}s`)
   return
 }
-
-export { status, pull, push }
