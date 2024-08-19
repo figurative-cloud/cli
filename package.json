@@ -9,9 +9,13 @@
   },
   "types": "./dist/cli.d.cts",
   "exports": {
-    ".": {
-      "require": "./dist/cli.cjs",
-      "import": "./dist/cli.mjs"
+    "require": {
+      "types": "./dist/cli.d.cts",
+      "default": "./dist/cli.cjs"
+    },
+    "import": {
+      "types": "./dist/cli.d.mts",
+      "default": "./dist/cli.mjs"
     }
   },
   "repository": {
