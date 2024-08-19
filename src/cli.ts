@@ -16,6 +16,7 @@ import {
 } from './integral'
 import { login, logout, whoami } from './lib/auth'
 import { terms } from './lib/utils'
+import pkg from '../package.json'
 
 const gray = '\x1b[90m'
 const reset = '\x1b[0m'
@@ -50,6 +51,7 @@ const cmds = {
     request: `Run an ${terms.Integral} by passing in parameters`,
     reset: 'Clean up the local environment',
     status: 'Show the diff between local and deployed env',
+    version: 'Check the current version of the CLI tool',
     whoami: 'Check who you are logged in as',
   },
   [terms.function_cmd]: {
@@ -76,6 +78,8 @@ const main = async (): Promise<void> => {
       await initReasonAI()
     } else if (command === 'reset') {
       removeReasonAI()
+    } else if (['version', '-v', '--version'].includes(command)) {
+      console.log(`Version: ${pkg.version}\n`)
     } else if (command === 'whoami') {
       whoami()
     } else if (command === 'login') {
