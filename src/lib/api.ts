@@ -1,11 +1,7 @@
 import ora from 'ora'
 
 import type { LocalFile, MetaItem, RemoteItem } from './types'
-import { sprintf } from './utils'
-
-const h = 'https://localhost:3001'
-export const HOST = `${h}/api/v1`
-export const HOST_AUTH = `${h}/api`
+import { API_V1, sprintf } from './utils'
 
 const printValidationErrors = (data: any) => {
   const spinner = ora()
@@ -30,7 +26,7 @@ export const getList = async (
 ): Promise<RemoteItem[]> => {
   const spinner = ora()
   try {
-    const response = await fetch(`${HOST}${uri}`, {
+    const response = await fetch(`${API_V1}${uri}`, {
       headers: { Authorization: `Bearer ${apiKey}` },
     })
     const data = await response.json()
@@ -54,7 +50,7 @@ export const createItem = async (
   try {
     const { filePath: _, ...input } = item
 
-    const response = await fetch(`${HOST}${uri}`, {
+    const response = await fetch(`${API_V1}${uri}`, {
       method: 'POST',
       body: JSON.stringify(input),
       headers: { Authorization: `Bearer ${apiKey}` },
@@ -88,7 +84,7 @@ export const deleteItem = async (
 ): Promise<boolean> => {
   const spinner = ora(`Deleting ${label} "${item.name}"`).start()
   try {
-    const response = await fetch(`${HOST}${uri}/${item.id}`, {
+    const response = await fetch(`${API_V1}${uri}/${item.id}`, {
       method: 'DELETE',
       body: JSON.stringify({}),
       headers: { Authorization: `Bearer ${apiKey}` },
@@ -123,7 +119,7 @@ export const updateItem = async (
   const { filePath: _, ...input } = item
 
   try {
-    const response = await fetch(`${HOST}${uri}/${item.id}`, {
+    const response = await fetch(`${API_V1}${uri}/${item.id}`, {
       method: 'PUT',
       body: JSON.stringify(input),
       headers: { Authorization: `Bearer ${apiKey}` },
@@ -165,7 +161,7 @@ export const runIntegral = async (
   const spinner = ora(`Running ${options.integral.name}`).start()
 
   try {
-    const response = await fetch(`${HOST}/apis/request`, {
+    const response = await fetch(`${API_V1}/apis/request`, {
       method: 'POST',
       body: JSON.stringify({
         apiId: options.integral.id,

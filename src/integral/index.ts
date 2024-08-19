@@ -19,7 +19,7 @@ import { getServicePath, terms } from '../lib/utils'
 
 const params = {
   label: terms.Integral,
-  uri: '/apis',
+  uri: '/integrals',
 }
 
 const fullName = `Reason ${terms.Integrals}`

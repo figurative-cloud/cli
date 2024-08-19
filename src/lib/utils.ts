@@ -33,7 +33,7 @@ export const toFileObject = (agent: RemoteItem) => {
   Object.keys(agent).map(key => {
     const val = agent[key as keyof typeof agent]
     if (val && !metaFields.includes(key as keyof RemoteAgent)) {
-      ;(lAgent as any)[key] = val
+      ; (lAgent as any)[key] = val
     }
   })
 
@@ -96,3 +96,7 @@ export const terms = {
   Function: 'Function',
   Functions: 'Functions',
 }
+
+const host = 'https://reasonai.dev'
+export const API_V1 = `${host}/api/v1`
+export const API_AUTH = `${host}/api`

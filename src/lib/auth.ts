@@ -1,8 +1,7 @@
 import ora from 'ora'
 import prompts from 'prompts'
 
-import { sprintf } from './utils'
-import { HOST_AUTH } from './api'
+import { API_AUTH, sprintf } from './utils'
 import { loadConfig, saveConfig } from './config'
 import type { Config } from './types'
 
@@ -39,7 +38,7 @@ export const login = async () => {
 
   try {
     spinner.start('Logging in with provided API Key')
-    const res = await fetch(`${HOST_AUTH}/auth/cli`, {
+    const res = await fetch(`${API_AUTH}/auth/cli`, {
       headers: { Authorization: `Bearer ${apiKey}` },
       method: 'POST',
       body: JSON.stringify({}),
